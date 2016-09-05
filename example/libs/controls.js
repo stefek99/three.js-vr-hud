@@ -29,7 +29,10 @@ bbs.Game.Controls.prototype = {
     },
 
     initEvents:function(){
-        window.addEventListener('deviceorientation', 'onSetOrientationControls', true);
+        // http://stackoverflow.com/questions/2236747/use-of-the-javascript-bind-method
+        var deviceorientationHandler = this.onSetOrientationControls.bind(this);
+
+        window.addEventListener('deviceorientation', deviceorientationHandler, true);
     },
 
     createControls: function() {
@@ -61,9 +64,9 @@ bbs.Game.Controls.prototype = {
         this.controls.connect();
         this.controls.update();
 
-        this.settings.element.addEventListener('click', jQuery.proxy(this,'fullscreen'), false);
+        // this.settings.element.addEventListener('click', jQuery.proxy(this,'fullscreen'), false);
         
-        window.removeEventListener('deviceorientation', this.listner, true);
+        // window.removeEventListener('deviceorientation', this.listner, true);
     },
 
     fullscreen:function() {
